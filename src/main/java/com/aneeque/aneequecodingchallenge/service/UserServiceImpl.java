@@ -15,9 +15,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService{
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @Override
     public UserDto registration(UserDto userDto) {
@@ -69,6 +75,18 @@ public class UserServiceImpl implements UserService{
         UserDto returnObj = modelMapper.map(user, UserDto.class);
 
         return  returnObj;
+    }
+
+    @Override
+    public Set<UserDto> getAllUsers() {
+        List<User> userList = userRepository.findAll();
+
+        Set<UserDto> userDtoSet = userList.stream().map(user -> {
+            UserDto userDto = modelMapper.map(user, UserDto.class);
+            return userDto;
+        }).collect(Collectors.toSet());
+
+        return userDtoSet;
     }
 
     private boolean isValidPassword(String password) {

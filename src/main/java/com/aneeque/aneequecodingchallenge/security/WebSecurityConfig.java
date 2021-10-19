@@ -63,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()  //telling SP.SEC not to manage state
                .authorizeRequests()
                .antMatchers("/api/auth/**").permitAll()
+               .antMatchers("/api/user/**").permitAll()
                .anyRequest()
                .authenticated();
 
