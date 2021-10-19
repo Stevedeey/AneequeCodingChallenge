@@ -1,6 +1,6 @@
 package com.aneeque.aneequecodingchallenge.security.jwt;
 
-import com.example.contributoryloanapp.security.services.UserDetailsServiceImpl;
+import com.aneeque.aneequecodingchallenge.security.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

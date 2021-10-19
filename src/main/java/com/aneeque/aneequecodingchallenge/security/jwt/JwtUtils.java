@@ -1,6 +1,6 @@
 package com.aneeque.aneequecodingchallenge.security.jwt;
 
-import com.example.contributoryloanapp.security.services.UserDetailsImpl;
+import com.aneeque.aneequecodingchallenge.security.service.UserDetailsImpl;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +16,10 @@ import java.util.function.Function;
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${contributoryapp.app.jwtSecret}")
+    @Value("${codingchallenge.app.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${contributoryapp.app.jwtExpirationMs}")
+    @Value("${codingchallenge.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
 
