@@ -1,17 +1,22 @@
 package com.aneeque.aneequecodingchallenge.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
 @Entity
 @Table(name = "users")
-public class User {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends BaseModel{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
 
     @Column(nullable = false, length = 50)
     private String firstname;
@@ -27,5 +32,10 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String encryptedPassword;
+
+    private String gender;
+
+    @Column(name = "date_of_birth")
+    private String dateOfBirth;
 
 }
