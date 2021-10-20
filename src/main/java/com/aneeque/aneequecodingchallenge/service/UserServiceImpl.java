@@ -11,6 +11,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@CacheConfig(cacheNames = "userCache")
 public class UserServiceImpl implements UserService{
 
 
@@ -45,6 +49,7 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private ModelMapper modelMapper;
 
+    @CacheEvict(cacheNames = "users", allEntries = true)
     @Override
     public UserDto registration(UserDto userDto) {
 
@@ -77,6 +82,7 @@ public class UserServiceImpl implements UserService{
         return  returnObj;
     }
 
+    @Cacheable(cacheNames = "users")
     @Override
     public Set<UserDto> getAllUsers() {
         List<User> userList = userRepository.findAll();
@@ -87,6 +93,12 @@ public class UserServiceImpl implements UserService{
         }).collect(Collectors.toSet());
 
         return userDtoSet;
+    }
+
+    @Cacheable(cacheNames = "users", key = "#email", unless = "#result == null")
+    @Override
+    public User getUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 
     private boolean isValidPassword(String password) {

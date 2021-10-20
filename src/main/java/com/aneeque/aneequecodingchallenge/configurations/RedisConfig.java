@@ -1,4 +1,4 @@
-package com.aneeque.codechallenge.configurations;
+package com.aneeque.aneequecodingchallenge.configurations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

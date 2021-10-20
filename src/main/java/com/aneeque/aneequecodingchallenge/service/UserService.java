@@ -10,5 +10,6 @@ public interface UserService {
 
     UserDto registration(UserDto userDto);
     Set<UserDto> getAllUsers();
+    User getUserByEmail(String email);
 
 }
